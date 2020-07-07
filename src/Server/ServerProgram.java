@@ -17,7 +17,7 @@ public class ServerProgram {
 
         try {
             while (true) {
-                System.out.println("Server is online");
+                System.out.println("Server is online\n");
                 Socket socket = serverSocket.accept();
                 System.out.println("Client has accepted!");
                 new ServerThread(socket,clientServer++).start();

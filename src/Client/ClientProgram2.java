@@ -5,21 +5,20 @@ import java.net.*;
 import java.util.Date;
 import java.util.Scanner;
 
-public class ClientProgram {
+public class ClientProgram2 {
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
+        Scanner scan2 = new Scanner(System.in);
         final String serverHost = "localhost";
-        Socket socketClient = null;
-        BufferedWriter bos = null;
-        BufferedReader bis = null;
-        BufferedReader win = null;
+         Socket socketClient = null;
+         BufferedWriter bos = null;
+         BufferedReader bis = null;
 
         try {
             socketClient = new Socket(serverHost, 1205);
             System.out.println("Successful Connection");
             bos = new BufferedWriter(new OutputStreamWriter(socketClient.getOutputStream()));
             bis = new BufferedReader(new InputStreamReader(socketClient.getInputStream()));
-            win = new BufferedReader(new InputStreamReader(System.in));
+
         } catch (UnknownHostException e) {
             e.printStackTrace();
             return;
@@ -28,28 +27,27 @@ public class ClientProgram {
             return;
         }
         try {
-            String m = "1", line = "2";
+//            bos.write("Now is: " + new Date());
+//            bos.newLine();
+//            bos.flush();
+//            bos.write("I'm Vinh");
+//            bos.newLine();
+//            bos.flush();
+            String m = "1";
             while (!m.equals("_Quit")) {
-
-                line = bis.readLine();
-                if (line != null) {
-                    System.out.println("Server: " + line);
-                }
-                m = win.readLine();
+//                System.out.println("Moi ban nhap");
+                m = scan2.nextLine();
+//                System.out.println(m);
                 bos.write(m);
                 bos.newLine();
                 bos.flush();
-//                m = scan.nextLine();
-//                bos.write(m);
-//                bos.newLine();
-//                bos.flush();
-//                String Line;
-//                while ((Line = bis.readLine()) != null) {
-//                    if (Line.contains("Conversation End")) {
-//                        break;
-//                    }
-//                    System.out.println("Client" + Line);
-//                }
+                String responseLine;
+                if ((responseLine = bis.readLine()) != null) {
+                    if (responseLine.contains("Conversation End")) {
+                        break;
+                    }
+                    System.out.println("Client" + responseLine);
+                }
             }
             bos.close();
             bis.close();

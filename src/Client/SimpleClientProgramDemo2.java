@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
-public class SimpleClientProgramDemo {
+public class SimpleClientProgramDemo2 {
     public static void main(String[] args) {
         //May chu hien tai
         final String serverHost = "LocalHost";
