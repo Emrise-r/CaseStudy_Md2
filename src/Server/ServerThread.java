@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class ServerThread extends Thread {
     private int clientServer;
     private Socket socket;
-    Scanner scan = new Scanner(System.in);
+//    Scanner scan = new Scanner(System.in);
 
     public ServerThread(Socket socket, int clientServer) {
         this.socket = socket;
@@ -22,32 +22,22 @@ public class ServerThread extends Thread {
     @Override
     public void run() {
         try {
-            BufferedReader bis = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//            BufferedReader bis = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             BufferedWriter bos = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             BufferedReader win = new BufferedReader(new InputStreamReader(System.in));
 
-            String m = "1", line = "2";
+            ServerReaderThread srt = new ServerReaderThread(socket);
+            Thread thread2 = new Thread(srt);
+            thread2.start();
+
+            String m = "1";
             while (true) {
 
                 m = win.readLine();
                 bos.write(m);
                 bos.newLine();
-                line = bis.readLine();
                 bos.flush();
-                if (line != null) {
-                    System.out.println("client" + clientServer + ": " + line);
-                }
 
-
-//                bos.newLine();
-//                bos.flush();
-//                System.out.println(line);
-                if (line.equals("_Quit")) {
-                    bos.write("Conversation End");
-                    bos.newLine();
-                    bos.flush();
-                    break;
-                }
             }
         } catch (IOException e) {
             System.out.println(e);

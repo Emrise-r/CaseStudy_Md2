@@ -7,9 +7,9 @@ public class ServerProgram {
     public static void main(String[] args) {
         ServerSocket serverSocket = null;
         int clientServer = 0;
-
+        int port = 1234;
         try {
-            serverSocket = new ServerSocket(1205);
+            serverSocket = new ServerSocket(port);
         } catch (IOException e) {
             System.out.println(e);
             System.exit(1);
