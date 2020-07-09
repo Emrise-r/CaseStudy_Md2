@@ -21,10 +21,12 @@ public class ClientOnline extends Thread {
             bos = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
             bis = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             while (true) {
+
+                //doc tin tu 1 client roi gui lai cho cac client dang ket noi
                 String line;
                 if ((line = bis.readLine()) != null) {
                     System.out.println("Client: " + line);
-                   server.sendToServer(line);
+                   server.serverSendAll(line);
                 }
             }
 
@@ -33,6 +35,7 @@ public class ClientOnline extends Thread {
         }
     }
 
+    //gui tin den 1 client trong list
     public void sendMessage(String mess) {
         try {
             bos.write("Client: " + mess);
