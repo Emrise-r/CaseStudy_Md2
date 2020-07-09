@@ -2,7 +2,6 @@ package Server;
 
 import java.io.*;
 import java.net.*;
-import java.util.List;
 
 public class ClientOnline extends Thread {
     private Socket clientSocket;
@@ -18,14 +17,14 @@ public class ClientOnline extends Thread {
     @Override
     public void run() {
         try {
-            bos = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-            bis = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            while (true) {
 
+            while (true) {
+                bos = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+                bis = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 //doc tin tu 1 client roi gui lai cho cac client dang ket noi
                 String line;
                 if ((line = bis.readLine()) != null) {
-                    System.out.println("Client: " + line);
+                    RunServer.textAreaDisplay.appendText(line + "\n");
                    server.serverSendAll(line);
                 }
             }
@@ -36,9 +35,9 @@ public class ClientOnline extends Thread {
     }
 
     //gui tin den 1 client trong list
-    public void sendMessage(String mess) {
+    public void sendMessage(String message) {
         try {
-            bos.write("Client: " + mess);
+            bos.write(message);
             bos.newLine();
             bos.flush();
         } catch (IOException e) {

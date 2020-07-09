@@ -3,12 +3,12 @@ package Client;
 import java.io.*;
 import java.net.Socket;
 
-public class ClientReaderThread implements Runnable {
+public class ClientReaderThread2 implements Runnable {
 
     Socket clientSocket;
     BufferedReader bis;
 
-    public ClientReaderThread(Socket clientSocket) {
+    public ClientReaderThread2(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
 
@@ -20,7 +20,7 @@ public class ClientReaderThread implements Runnable {
                 bis = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 String line;
                 if ((line = bis.readLine()) != null) {
-                    ClientProgram.textAreaDisplay_1.appendText(line + "\n");
+                    ClientProgram2.textAreaDisplay_2.appendText(line + "\n");
                 }
             } catch (IOException e) {
                 e.printStackTrace();

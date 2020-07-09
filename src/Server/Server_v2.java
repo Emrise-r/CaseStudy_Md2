@@ -6,16 +6,18 @@ import java.util.*;
 
 
 public class Server_v2 extends Thread{
-    //Tao list ten cac client dang ket noi
-    List<ClientOnline> connectionlist = new ArrayList<ClientOnline>();
 
-    public List<ClientOnline> getConnectionlist() {
-        return connectionlist;
+
+    //Tao list ten cac client dang ket noi
+    List<ClientOnline> connectionList = new ArrayList<>();
+
+    public List<ClientOnline> getConnectionList() {
+        return connectionList;
     }
 
     //gui tin tu server den cac user trong list
     public void serverSendAll(String mess) {
-        for (ClientOnline clientOnline : this.connectionlist) {
+        for (ClientOnline clientOnline : this.connectionList) {
             clientOnline.sendMessage(mess);
         }
     }
@@ -23,18 +25,19 @@ public class Server_v2 extends Thread{
     @Override
     public void run() {
 
-        try{
-
+        try {
             //tao server socket
             ServerSocket serverSocket = new ServerSocket(4321);
+
             while (true) {
-                System.out.println("Waiting for User");
+
+                RunServer.textAreaDisplay.appendText("Waiting for User \n");
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("Client has accepted!");
+                RunServer.textAreaDisplay.appendText("Client has accepted! \n");
                 //Khi nguoi dung ket noi, tao doi tuong client online de quan ly user
                 ClientOnline clientOnline = new ClientOnline(clientSocket, this);
-                connectionlist.add(clientOnline);
-                System.out.println("So client online" + connectionlist.size());
+                connectionList.add(clientOnline);
+                RunServer.textAreaDisplay.appendText("Số client đã kết nối: " + connectionList.size() + "\n");
                 clientOnline.start();
             }
 
@@ -42,5 +45,4 @@ public class Server_v2 extends Thread{
             e.printStackTrace();
         }
     }
-
 }
