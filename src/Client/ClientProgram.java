@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class ClientProgram {
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
         final String serverHost = "localhost";
         final int port = 4321;
         Socket socketClient = null;

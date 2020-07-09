@@ -15,6 +15,7 @@ public class ClientReaderThread implements Runnable {
     public void run() {
         while (true) {
             try {
+                //doc tin nhan
                 bis = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 String line;
                 if ((line = bis.readLine()) != null) {
